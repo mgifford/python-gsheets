@@ -13,7 +13,5 @@ pip3 install urlvalidator
 Set up Google Console and ensure that you have basic authentication in ~/.config/gspread/service_account.json
 
 # TODO
-* Move spreadsheet info into seperate config file
-* Set up .gitignore file to remove from repo
 * get proper URL parsing
  
