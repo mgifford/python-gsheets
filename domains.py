@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+
 # Pull in libraries
 import gspread
 import trafilatura
 import textstat
 import urllib
+import validators
 # import py-readability-metrics
 # import readability.py
 
@@ -16,8 +19,8 @@ gc = gspread.service_account()
 gspread_url = 'https://docs.google.com/spreadsheets/d/1EC42i2ETouRdQDJtF6guaS-3FIWSN6KUHs_ltdK-fV4/edit#gid=1129282989'
 sh = gc.open_by_url(gspread_url)
 
-# Fails on 4
-for x in range(60, 1000):
+# Fails on 64
+for x in range(65, 1000):
 #    print("We're on time %d" % (x))
     row = str(x)
 
@@ -26,29 +29,35 @@ for x in range(60, 1000):
 
     # Switch to the shell gsheet & add a url from the domain domain
     worksheet = sh.worksheet("shell") # By title
-    url = "https://" + val
 
-    def file_exists(url):
-        request = urllib.Request(url)
-        request.get_method = lambda : 'HEAD'
-        try:
-            response = urllib.urlopen(request)
-            return True
-        except urllib.HTTPError:
-            url = "http://" + val
-            return False
+    from urlvalidator import validate_url, validate_email, ValidationError
+    url = 0
+    try:
+       validate_url("https://" + val)
+       url = "https://" + val
+    except ValidationError:
+       raise ValidationError("Invalid URL")
+
+    # if validators.domain("http://" + val):
+    #     url = "http://" + val
+    # elif validators.domain("http://www." + val):
+    #    url = "http://www." + val
+
+    # print(validators.domain("https://" + val))
 
     # Test
     print(url)
 
-    worksheet.update('A' + row, url)
+    if url != 0:
+        worksheet.update('A' + row, url)
 
-    # Size of page in characters
-    worksheet = sh.worksheet("shell") # By title
-    downloaded = trafilatura.fetch_url(url)
-    worksheet.update("B" + row, len(downloaded))
+        # Size of page in characters
+        worksheet = sh.worksheet("shell") # By title
+        downloaded = trafilatura.fetch_url(url)
+        worksheet.update("B" + row, len(str(downloaded)))
+
 #    print(downloaded)
-    if len(str(downloaded)) != 0:
+    if url != 0 or len(str(downloaded)) != 0:
         from readability.readability import Document
         from html2text import html2text
 
