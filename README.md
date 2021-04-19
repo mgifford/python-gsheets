@@ -12,6 +12,6 @@ pip3 install urlvalidator
 ## Install Google Authentication
 Set up Google Console and ensure that you have basic authentication in ~/.config/gspread/service_account.json
 
-# TODO
+## TODO
 * get proper URL parsing
  
