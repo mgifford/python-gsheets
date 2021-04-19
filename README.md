@@ -10,10 +10,14 @@ pip3 install import validators
 pip3 install urlvalidator 
 
 ## Install Google Authentication
-Set up Google Console and ensure that you have basic authentication in ~/.config/gspread/service_account.json
+To use [gspread you need to use Google Sheets API](https://gspread.readthedocs.io/en/latest/oauth2.html) and be an authenticated user. This can be done in OAuth2 but I've used the basic authentication in ~/.config/gspread/service_account.json
 
-# TODO
-* Move spreadsheet info into seperate config file
-* Set up .gitignore file to remove from repo
+Either way you'll need to get a project in [Google's Console set up](https://console.developers.google.com/project) to do this. I used my personal Google account.
+
+This is a bot, so the [For Bots: Using Service Account](https://gspread.readthedocs.io/en/latest/oauth2.html#for-bots-using-service-account) work great. 
+
+I found making the spreadsheet editable with the link worked, I haven't dug into doing this with more restricted sheets. 
+
+## TODO
 * get proper URL parsing
  
