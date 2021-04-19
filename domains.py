@@ -23,6 +23,8 @@ gc = gspread.service_account()
 gspread_url = cfg.gspread_url
 sh = gc.open_by_url(gspread_url)
 
+print(cfg.gspread_url)
+
 # Fails on 64
 for x in range(cfg.start, cfg.end):
 #    print("We're on time %d" % (x))
@@ -61,7 +63,7 @@ for x in range(cfg.start, cfg.end):
         worksheet.update("B" + row, len(str(downloaded)))
 
 #    print(downloaded)
-    if url != 0 or len(str(downloaded)) != 0:
+    if url != 0 and downloaded != None:
         from readability.readability import Document
         from html2text import html2text
 
