@@ -63,7 +63,7 @@ for x in range(cfg.start, cfg.end):
         worksheet.update("B" + row, len(str(downloaded)))
 
 #    print(downloaded)
-    if url != 0 and downloaded != None:
+    if url != 0 and downloaded:
         from readability.readability import Document
         from html2text import html2text
 
