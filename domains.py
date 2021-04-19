@@ -6,6 +6,9 @@ import trafilatura
 import textstat
 import urllib
 import validators
+
+import setup as cfg
+
 # import py-readability-metrics
 # import readability.py
 
@@ -16,11 +19,12 @@ import validators
 
 # Connect Google account & URL
 gc = gspread.service_account()
-gspread_url = 'https://docs.google.com/spreadsheets/d/1EC42i2ETouRdQDJtF6guaS-3FIWSN6KUHs_ltdK-fV4/edit#gid=1129282989'
+# gspread_url = 'https://docs.google.com/spreadsheets/d/1EC42i2ETouRdQDJtF6guaS-3FIWSN6KUHs_ltdK-fV4/edit#gid=1129282989'
+gspread_url = cfg.gspread_url
 sh = gc.open_by_url(gspread_url)
 
 # Fails on 64
-for x in range(65, 1000):
+for x in range(cfg.start, cfg.end):
 #    print("We're on time %d" % (x))
     row = str(x)
 
